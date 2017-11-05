@@ -63,8 +63,10 @@ var sendCoords = function(coords){
                           confirmButtonColor: '#282b30',
                           confirmButtonText: 'OK'
                         }).then(function(){
-                            console.log("Finished with Tripp!!");
-                            gm.system.closeApp(); 
+                            $.get("https://ezpark-dalofeco.c9users.io/arrived", function(data, status){
+                                console.log("Finished with Tripp!!");
+                                gm.system.closeApp(); 
+                            });
                           });
                         });
                     }
