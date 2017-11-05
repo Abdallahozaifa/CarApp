@@ -18,19 +18,59 @@
 
 .imagewrap {display:inline-block;position:relative;}
 
+.time, .course, .building{
+    position: absolute;
+    top: 432px;
+    background-color: #282b30;
+    padding: 3px 3px 3px 3px;
+    font-size: 30px;
+    color: #e0cb89;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 40px;  
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: solid #525559;
+}
+.time, .course{
+    border-right: solid #525559;
+}
+
+
+
+.time{
+    left:0%;
+    height: 40px;
+    width: 266px;
+}
+.course{
+    left:274px;
+    height: 40px;
+    width: 266px;
+}
+.building{
+    left:548px;
+    height: 40px;
+    width: 246px;
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    overflow: hidden;*/
+
+}
+
 .button1 {
   position:absolute;
   top:10%;
   left:38%;
-  background: #5c5d5e;
-  background-image: -webkit-linear-gradient(top, #5c5d5e, #2b2d2e);
-  background-image: -moz-linear-gradient(top, #5c5d5e, #2b2d2e);
-  background-image: -ms-linear-gradient(top, #5c5d5e, #2b2d2e);
-  background-image: -o-linear-gradient(top, #5c5d5e, #2b2d2e);
-  background-image: linear-gradient(to bottom, #5c5d5e, #2b2d2e);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
+  background: #454445;
+  background-image: -webkit-linear-gradient(top, #454445, #000000);
+  background-image: -moz-linear-gradient(top, #454445, #000000);
+  background-image: -ms-linear-gradient(top, #454445, #000000);
+  background-image: -o-linear-gradient(top, #454445, #000000);
+  background-image: linear-gradient(to bottom, #454445, #000000);
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
