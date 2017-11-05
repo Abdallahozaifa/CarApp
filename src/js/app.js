@@ -24,7 +24,7 @@ $(function(){
        document.getElementById('id01').style.display='block'
     });
 });
-
+var calcLat, calcLng, count=0;
 /* Sends the coords to server */
 var sendCoords = function(coords){    
     $.post( "https://ezpark-dalofeco.c9users.io/coords", coords).done(function(data) {
@@ -38,16 +38,25 @@ var sendCoords = function(coords){
         var imgWrap = $(".imagewrap");
         var btn = $(".button1");
         var dest = {lat: data.lat, lng: data.lng};
+        var staticMapAPI = "https://maps.googleapis.com/maps/api/staticmap?center=" + data.lat + "," + data.lng + "&zoom=16&size=400x175&scale=2&maptype=roadmap&markers=color:blue%7C" + data.lat + "," + data.lng + "&key=AIzaSyCcgWNRhYcnApQ82UCBgtKJfmUF9HLxr_g";
+        $("body").css('background-image', 'url(' + staticMapAPI + ')');
+        var img = $("#static-map");
+        img.attr("src", staticMapAPI);
         var price = data.price;
         btn.click(function(e){
           gm.nav.setDestination(function(success){
                 console.log("Successfully launched navigation!");
                 console.log("lat: %s, lng: %s", data.lat, data.lng);
-                gm.info.watchVehicleData(function(data){
-                    console.log("new lat: %s, new long: %s", data.gps_lat, data.gps_long);
-                    var calcLat = MATH.abs(dest.lat - data.gps_lat);
-                    var calcLng = MATH.abs(dest.lng - data.gps_long);
-                    if(calcLat < 0.00020 && calcLng < 0.00020){
+                var interval = gm.info.watchVehicleData(function(data){
+                    console.log("new lat: %s, new long: %s", data.gps_lat/3600000, data.gps_long/3600000);
+                    if(!isNaN(data.gps_lat)){
+                        calcLat = Math.abs(dest.lat - data.gps_lat/3600000);
+                    }
+                    if(!isNaN(data.gps_long)){
+                        calcLng = Math.abs(dest.lng - data.gps_long/3600000);
+                    }
+                    console.log("calc lat: %s, calc long: %s", calcLat, calcLng);
+                    if(calcLat < 0.0004 && calcLng < 0.0004){
                         swal({
                           title: 'Would you like to accept the fee?',
                           text: "It will cost $" + price + ".00",
@@ -69,42 +78,12 @@ var sendCoords = function(coords){
                             });
                           });
                         });
+                        gm.info.clearVehicleData(interval);
                     }
                 }, ['gps_lat', 'gps_long']);
           }, function(fail){
                 console.log("Failed to launch navigation!");
           }, {latitude: data.lat, longitude: data.lng}, true);
-                    
-//            swal({
-//              title: 'Would you like to accept the fee?',
-//              text: "It will cost $" + data.price + ".00",
-//              type: 'warning',
-//              showCancelButton: true,
-//              confirmButtonColor: '#282b30',
-//              cancelButtonColor: '#d33',
-//              confirmButtonText: 'Yes, pay the fee!'
-//            }).then(function () {
-//              swal({
-//              title: 'Payment Authorized!',
-//              type: 'success',
-//              confirmButtonColor: '#282b30',
-//              confirmButtonText: 'OK'
-//            }).then(function(){
-//                console.log("Clicked it!");
-//                imgWrap.remove();
-//                $("body").css('background-image', 'none');
-//                gm.nav.setDestination(function(success){
-//                    console.log("Successfully launched navigation!");
-//                    console.log("lat: %s, lng: %s", data.lat, data.lng);
-//                    $("#time").remove();
-//                    $("#course").remove();
-//                    $("#building").remove();
-//                    //gm.system.closeApp();
-//                }, function(fail){
-//                    console.log("Failed to launch navigation!");
-//                }, {latitude: data.lat, longitude: data.lng}, true);  
-//              });
-//            });
         });
     }).fail(function() {
      console.log("error");
@@ -119,10 +98,6 @@ gm.info.getCurrentPosition(function(position){
     var coords = {lat: lat, lng: lng};
     sendCoords(coords);
     /* 800 x 390 */
-    var staticMapAPI = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=16&size=400x175&scale=2&maptype=roadmap&markers=color:blue%7C" + lat + "," + lng + "&key=AIzaSyCcgWNRhYcnApQ82UCBgtKJfmUF9HLxr_g";
-    var img = $("#static-map");
-    img.attr("src", staticMapAPI);
-    $("body").css('background-image', 'url(' + staticMapAPI + ')');
     var buildingTag = $(".building");
 
         $.fn.textWidth = function(){
