@@ -1,0 +1,55 @@
+/* Your CSS goes here */
+#main {
+  text-align: center;
+}
+
+#close {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  z-index: 1000;
+}
+#close img {
+  width: 100%;
+}
+
+.imagewrap {display:inline-block;position:relative;}
+
+.button1 {
+  position:absolute;
+  top:10%;
+  left:38%;
+  background: #5c5d5e;
+  background-image: -webkit-linear-gradient(top, #5c5d5e, #2b2d2e);
+  background-image: -moz-linear-gradient(top, #5c5d5e, #2b2d2e);
+  background-image: -ms-linear-gradient(top, #5c5d5e, #2b2d2e);
+  background-image: -o-linear-gradient(top, #5c5d5e, #2b2d2e);
+  background-image: linear-gradient(to bottom, #5c5d5e, #2b2d2e);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.button1:hover {
+  background: #8c8e8f;
+  background-image: -webkit-linear-gradient(top, #8c8e8f, #49494a);
+  background-image: -moz-linear-gradient(top, #8c8e8f, #49494a);
+  background-image: -ms-linear-gradient(top, #8c8e8f, #49494a);
+  background-image: -o-linear-gradient(top, #8c8e8f, #49494a);
+  background-image: linear-gradient(to bottom, #8c8e8f, #49494a);
+  text-decoration: none;
+}
+
+@media (min-width: 801px) {
+  #close {
+    top: 104px;
+  }
+}

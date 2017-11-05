@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HACK PSU App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Base css, but you'll likely want to keep them -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+
+    <!-- Your custom files -->
+    <link rel="stylesheet" href="css/app.css" type="text/css">
+
+    <script src="js/ngi.polyfill.min.js"></script>
+    <script src="GMLIB/system.js"></script>
+    <script src="GMLIB/info.js"></script>
+
+    <!-- Uncomment libraries as you need them: -->
+    <!-- <script src="GMLIB/comm.js"></script> -->
+    <!-- <script src="GMLIB/io.js"></script> -->
+    <!-- <script src="GMLIB/media.js"></script> -->
+     <script src="GMLIB/nav.js"></script> 
+    <!-- <script src="GMLIB/phone.js"></script> -->
+    <!-- <script src="GMLIB/ui.js"></script> -->
+    <!-- <script src="GMLIB/voice.js"></script> -->
+
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="close"><img src="images/close.png" onclick="gm.system.closeApp()" alt="close"></div>
+      <div id="main">
+
+        <!-- Remove all code inside #main and add your own! -->
+<!--        <h1>HACK PSU TEAM</h1>-->
+        <!--<p>
+          Your VIN is: <span id="vin"></span>
+        </p>-->
+
+      </div>
+    </div>
+
+    <!-- Your app code: -->
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+    <div class="imagewrap">
+        <img id="static-map">
+        <input type="button" class="button1" value="Start Navigation" />
+    </div>
+  </body>
+</html>
