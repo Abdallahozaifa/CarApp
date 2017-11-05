@@ -1,10 +1,29 @@
 // Your code goes here
 /* global gm, document*/
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 var vinElem = document.getElementById('vin');
 gm.info.getVehicleConfiguration(function(data) {
     //vinElem.innerHTML = gm.info.getVIN();
 });
 /* 40.794631, -77.867982 */
+$(function(){
+    var settingsIcon = $(".settings-icon");
+    console.log(settingsIcon);
+    settingsIcon.css("cursor", "pointer");
+    settingsIcon.click(function(){
+       console.log("Clicked settings icon!"); 
+       document.getElementById('id01').style.display='block'
+    });
+});
 
 /* Sends the coords to server */
 var sendCoords = function(coords){    
@@ -18,37 +37,72 @@ var sendCoords = function(coords){
         classTime.text(data.time);
         var imgWrap = $(".imagewrap");
         var btn = $(".button1");
+        var dest = {lat: data.lat, lng: data.lng};
+        var price = data.price;
         btn.click(function(e){
-            swal({
-              title: 'Would you like to accept the fee?',
-              text: "It will cost $5.00",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#282b30',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, pay the fee!'
-            }).then(function () {
-              swal({
-              title: 'Payment Authorized!',
-              type: 'success',
-              confirmButtonColor: '#282b30',
-              confirmButtonText: 'OK'
-            }).then(function(){
-                console.log("Clicked it!");
-                imgWrap.remove();
-                $("body").css('background-image', 'none');
-                gm.nav.setDestination(function(success){
-                    console.log("Successfully launched navigation!");
-                    console.log("lat: %s, lng: %s", data.lat, data.lng);
-                    $("#time").remove();
-                    $("#course").remove();
-                    $("#building").remove();
-                    //gm.system.closeApp();
-                }, function(fail){
-                    console.log("Failed to launch navigation!");
-                }, {latitude: data.lat, longitude: data.lng}, true);  
-              });
-            });
+          gm.nav.setDestination(function(success){
+                console.log("Successfully launched navigation!");
+                console.log("lat: %s, lng: %s", data.lat, data.lng);
+                gm.info.watchVehicleData(function(data){
+                    console.log("new lat: %s, new long: %s", data.gps_lat, data.gps_long);
+                    var calcLat = MATH.abs(dest.lat - data.gps_lat);
+                    var calcLng = MATH.abs(dest.lng - data.gps_long);
+                    if(calcLat < 0.00020 && calcLng < 0.00020){
+                        swal({
+                          title: 'Would you like to accept the fee?',
+                          text: "It will cost $" + price + ".00",
+                          type: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#282b30',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Yes, pay the fee!'
+                        }).then(function () {
+                          swal({
+                          title: 'Payment Authorized!',
+                          type: 'success',
+                          confirmButtonColor: '#282b30',
+                          confirmButtonText: 'OK'
+                        }).then(function(){
+                            console.log("Finished with Tripp!!");
+                            gm.system.closeApp(); 
+                          });
+                        });
+                    }
+                }, ['gps_lat', 'gps_long']);
+          }, function(fail){
+                console.log("Failed to launch navigation!");
+          }, {latitude: data.lat, longitude: data.lng}, true);
+                    
+//            swal({
+//              title: 'Would you like to accept the fee?',
+//              text: "It will cost $" + data.price + ".00",
+//              type: 'warning',
+//              showCancelButton: true,
+//              confirmButtonColor: '#282b30',
+//              cancelButtonColor: '#d33',
+//              confirmButtonText: 'Yes, pay the fee!'
+//            }).then(function () {
+//              swal({
+//              title: 'Payment Authorized!',
+//              type: 'success',
+//              confirmButtonColor: '#282b30',
+//              confirmButtonText: 'OK'
+//            }).then(function(){
+//                console.log("Clicked it!");
+//                imgWrap.remove();
+//                $("body").css('background-image', 'none');
+//                gm.nav.setDestination(function(success){
+//                    console.log("Successfully launched navigation!");
+//                    console.log("lat: %s, lng: %s", data.lat, data.lng);
+//                    $("#time").remove();
+//                    $("#course").remove();
+//                    $("#building").remove();
+//                    //gm.system.closeApp();
+//                }, function(fail){
+//                    console.log("Failed to launch navigation!");
+//                }, {latitude: data.lat, longitude: data.lng}, true);  
+//              });
+//            });
         });
     }).fail(function() {
      console.log("error");
@@ -142,6 +196,7 @@ gm.info.getCurrentPosition(function(position){
 
     buildingTag.marquee(); 
 }, true);
+
 
 console.log($("body").width());
 console.log($("body").height());

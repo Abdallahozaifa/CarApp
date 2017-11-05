@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Uncomment libraries as you need them: -->
     <!-- <script src="GMLIB/comm.js"></script> -->
     <!-- <script src="GMLIB/io.js"></script> -->
@@ -46,11 +46,48 @@
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
     <div class="imagewrap">
+        <i class="fa fa-gear settings-icon" style="font-size:48px;color:black"></i>
         <img id="static-map">
-        <input type="button" class="button1" value="Start Navigation" />
+        <input type="button" class="button1" value="Start Navigation"/>
     </div>
     <div id="time" class="time"></div>
     <div id="course" class="course"></div>
     <div id="building" class="building"></div>
+      
+    <!----------------------------------------------------------->
+<!--    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>-->
+
+    <div id="id01" class="modal">
+
+      <form class="modal-content animate">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="https://i2.wp.com/macmulkincorvette.com/wp-content/uploads/2016/06/2016-corvette-june-sales.jpg?resize=620%2C329" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+          <label><b>Full Name</b></label>
+          <input class="register" type="text" placeholder="Enter Username" name="uname" value="Hozaifa Abdalla" required>
+
+          <label><b>Student ID</b></label>
+          <input class="register" type="text" placeholder="Enter Password" name="psw" value="hea113" required>
+
+          <label><b>License Plate</b></label>
+          <input class="register" type="text" placeholder="Enter Password" name="psw" value="XYZ-1453" required>
+
+          <label><b>User Name</b></label>
+          <input class="register" type="text" placeholder="Enter Password" name="psw" value="abdallahozaifa" required>
+
+          <label><b>Password</b></label>
+          <input class="register" type="password" placeholder="Enter Password" name="psw" value="asadasda" required>
+
+          <button class="gear-btn" type="submit">Register</button>
+        </div>
+
+        <div class="container gear-cancel" style="background-color:#282b30">
+          <button class="gear-btn" type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
