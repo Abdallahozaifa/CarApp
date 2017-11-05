@@ -19,19 +19,36 @@ var sendCoords = function(coords){
         var imgWrap = $(".imagewrap");
         var btn = $(".button1");
         btn.click(function(e){
-            console.log("Clicked it!");
-            imgWrap.remove();
-            $("body").css('background-image', 'none');
-            gm.nav.setDestination(function(success){
-                console.log("Successfully launched navigation!");
-                console.log("lat: %s, lng: %s", data.lat, data.lng);
-                $("#time").remove();
-                $("#course").remove();
-                $("#building").remove();
-                gm.system.closeApp();
-            }, function(fail){
-                alert("Failed to launch navigation!");
-            }, {latitude: data.lat, longitude: data.lng}, true); 
+            swal({
+              title: 'Would you like to accept the fee?',
+              text: "It will cost $5.00",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#282b30',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, pay the fee!'
+            }).then(function () {
+              swal({
+              title: 'Payment Authorized!',
+              type: 'success',
+              confirmButtonColor: '#282b30',
+              confirmButtonText: 'OK'
+            }).then(function(){
+                console.log("Clicked it!");
+                imgWrap.remove();
+                $("body").css('background-image', 'none');
+                gm.nav.setDestination(function(success){
+                    console.log("Successfully launched navigation!");
+                    console.log("lat: %s, lng: %s", data.lat, data.lng);
+                    $("#time").remove();
+                    $("#course").remove();
+                    $("#building").remove();
+                    //gm.system.closeApp();
+                }, function(fail){
+                    console.log("Failed to launch navigation!");
+                }, {latitude: data.lat, longitude: data.lng}, true);  
+              });
+            });
         });
     }).fail(function() {
      console.log("error");
